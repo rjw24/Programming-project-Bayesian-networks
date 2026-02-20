@@ -16,12 +16,9 @@ class Diagnostics:
         - Smoking   : True means the patient is a smoker
         - Xray      : True means the X-ray result is Abnormal
         - Dyspnea   : True means dyspnea is Present
-
-    The network structure and CPT values match the project PDF (Asia network).
     """
 
     def __init__(self):
-        """Construct the Bayes net (done once, reused for all diagnoses)."""
         self.bn = BayesNet([
             # Priors
             ('Asia', '', 0.01),
@@ -30,10 +27,7 @@ class Diagnostics:
             # Diseases / intermediate nodes
             ('TB', 'Asia', {T: 0.05, F: 0.01}),
 
-            # NOTE: The standard "Asia" lung-disease network (and the example
-            # output shown in the project PDF) uses:
-            #   P(Cancer=True | Smoking=True)  = 0.1
-            #   P(Cancer=True | Smoking=False) = 0.01
+            # The standard "Asia" lung-disease network
             ('Cancer', 'Smoking', {T: 0.1, F: 0.01}),
 
             ('Bronchitis', 'Smoking', {T: 0.6, F: 0.3}),
